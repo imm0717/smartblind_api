@@ -1,19 +1,25 @@
+import { join } from "path";
 import { ConnectionOptions } from "typeorm";
-const config: ConnectionOptions = {
+
+const configOrm: ConnectionOptions = {
+
     type: 'mysql',
-    host: "127.0.0.1",
-    port: 3306,
-    username: "root",
-    password: "root",
-    database: "smartblind",
-    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    host: process.env.DB_HOST || '127.0.0.1',
+    port: parseInt(process.env.DB_PORT, 10) || 3306,
+    username: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || 'root',
+    database: process.env.DB_NAME || 'smartblind',
+    entities: [ join(__dirname, '/../**/entity/*{.ts,.js}')],
     synchronize: false,
     migrationsRun: false,
     logging: true,
-    migrations: [__dirname + '/../migrations/**/*{.ts,.js}'],
+    migrations: [join(__dirname, '/../../migrations/*{.ts,.js}')],
     cli: {
         migrationsDir: './migrations',
+        entitiesDir: "src/**/entity/*.{.ts,.js}"
     },
+
 }
 
-export = config
+export = configOrm
+
