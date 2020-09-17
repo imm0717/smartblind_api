@@ -1,4 +1,9 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Address } from './Address';
+import { Profile } from './Profile';
+import { Gender } from './Gender';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { userInfo } from 'os';
+import { type } from 'src/configs/ormconfig';
 
 @Entity()
 export class User {
@@ -12,18 +17,6 @@ export class User {
     @Column({ length: 250 })
     password: string
 
-    @Column({ length: 100, nullable: true})
-    firstname: string
-
-    @Column({ length: 100, nullable: true})
-    lastname: string
-
-    @Column({ type: 'date', nullable: true})
-    date_of_birth: string
-
-    @Column({ length: 50, nullable: true})
-    phone: string
-
     @Column({ type: 'boolean', default: true })
     active: boolean
 
@@ -31,6 +24,15 @@ export class User {
     created_at
     @UpdateDateColumn()
     updated_at
+
+    @OneToOne(type => Profile, profile => profile.id, {
+        cascade: true
+    })
+    @JoinColumn()
+    profile: Profile
+
+    @OneToMany(type => Address, address => address.user)
+    address: Address[]
     
 
 }
