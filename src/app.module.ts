@@ -11,16 +11,12 @@ import { UsersModule } from './users/users.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load:[appConfig]
+      load:[ ()=> appConfig  ]
     }),
-    TypeOrmModule.forRoot(appConfig().database), AuthenticationModule, UsersModule
+    TypeOrmModule.forRoot({...appConfig.database, autoLoadEntities: true}), AuthenticationModule, UsersModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 
-export class AppModule { 
-  constructor(){
-    console.log(appConfig().database); 
-  }
-}
+export class AppModule { }

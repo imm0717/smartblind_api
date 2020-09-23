@@ -1,23 +1,22 @@
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../guards/jwt-auth.guards';
 import { AuthenticationService } from './authentication.service';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { LoginUserDto } from './dto/loginUser.dto';
 
 @Controller('auth')
 export class AuthenticationController {
     constructor(private readonly authenticationService: AuthenticationService){
     }
 
-    @Get('login')
-    async login(@Body('email') email:string, @Body('password') password:string): Promise<string>{
-        return await this.authenticationService.loggin(email, password)
+    @Post('login')
+    async login(@Body() loginUserDto: LoginUserDto){
+        return await this.authenticationService.login(loginUserDto)
     }
 
-    @Post('register')
-    async register(): Promise<string>{
-        return await this.authenticationService.register()
-    }
-
+    @UseGuards(JwtAuthGuard)
     @Get('forgot')
-    async forgot(): Promise<string>{
+    async forgot(@Param() params): Promise<string>{
+        console.log(params)
         return await this.authenticationService.forgotPassword()
     }
 

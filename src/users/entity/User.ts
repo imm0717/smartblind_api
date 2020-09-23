@@ -26,12 +26,15 @@ export class User {
     updated_at
 
     @OneToOne(type => Profile, profile => profile.id, {
-        cascade: true
+        cascade: true,
+        eager: true
     })
     @JoinColumn()
     profile: Profile
 
-    @OneToMany(type => Address, address => address.user)
+    @OneToMany(type => Address, address => address.user, {
+        eager: true
+    })
     address: Address[]
     
 

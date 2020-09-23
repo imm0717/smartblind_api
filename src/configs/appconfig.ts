@@ -1,6 +1,6 @@
 import * as configOrm from "./ormconfig";
-export default () => ({
+export default {
     port: parseInt(process.env.PORT, 10) || 3000,
-    app_key: process.env.APP_KEY,
+    app_key: process.env.APP_KEY || 'smartblind',
     database: configOrm
-})
+}
