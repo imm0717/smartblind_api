@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import appConfig from "./configs/appconfig";
 import { AuthenticationModule } from './authentication/authentication.module';
 import { UsersModule } from './users/users.module';
+import { FileuploadModule } from './fileupload/fileupload.module';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { UsersModule } from './users/users.module';
       isGlobal: true,
       load:[ ()=> appConfig  ]
     }),
-    TypeOrmModule.forRoot({...appConfig.database, autoLoadEntities: true}), AuthenticationModule, UsersModule
+    TypeOrmModule.forRoot({...appConfig.database, autoLoadEntities: true}), AuthenticationModule, UsersModule, FileuploadModule
   ],
   controllers: [AppController],
   providers: [AppService],
