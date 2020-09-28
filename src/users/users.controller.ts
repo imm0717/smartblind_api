@@ -18,10 +18,11 @@ export class UsersController {
         return await this.userService.getUsers()
     }
 
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     @Post('register')
     async register(@Body() createUserDto: CreateUserDto){
-        return await this.userService.createUser(createUserDto)
+        //return await this.userService.createUser(createUserDto)
+        throw new Error('Error interno')
     }
 
     @UseGuards(JwtAuthGuard)

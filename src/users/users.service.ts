@@ -35,11 +35,11 @@ export class UsersService {
             const userInDb = await this.findUserByEmail(data.email)
             if (!userInDb) {
                 const encryptedPassword = await this.encryptPassword(data.password)
-                const user = await this.userRepository.create()
+                const user = this.userRepository.create()
                 user.email = data.email
                 user.password = encryptedPassword
                 
-                const profile = await this.profileRepository.create()
+                const profile = this.profileRepository.create()
                 profile.firstname = data.firstname
                 profile.lastname = data.lastname
                 user.profile = profile

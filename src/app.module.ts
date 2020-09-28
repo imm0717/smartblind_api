@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -12,12 +12,22 @@ import { FileuploadModule } from './fileupload/fileupload.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load:[ ()=> appConfig  ]
+      load: [appConfig]
     }),
-    TypeOrmModule.forRoot({...appConfig.database, autoLoadEntities: true}), AuthenticationModule, UsersModule, FileuploadModule
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const dbConfig = configService.get('database')
+        return { ...dbConfig, autoLoadEntities: true }
+      }
+    }),
+    AuthenticationModule,
+    UsersModule,
+    FileuploadModule
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 
-export class AppModule { }
+export class AppModule {}

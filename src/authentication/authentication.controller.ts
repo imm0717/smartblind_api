@@ -16,7 +16,6 @@ export class AuthenticationController {
     @UseGuards(JwtAuthGuard)
     @Get('forgot')
     async forgot(@Param() params): Promise<string>{
-        console.log(params)
         return await this.authenticationService.forgotPassword()
     }
 
