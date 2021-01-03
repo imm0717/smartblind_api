@@ -6,11 +6,13 @@ import { Repository } from 'typeorm';
 import { User } from './entity/User';
 import * as bcrypt from "bcrypt";
 import { CreateUserDto } from './dto/createUser.dto';
+import { Gender } from './entity/Gender';
 
 @Injectable()
 export class UsersService {
     constructor(@InjectRepository(User) private userRepository: Repository<User>, 
-    @InjectRepository(Profile) private profileRepository: Repository<Profile>) {
+    @InjectRepository(Profile) private profileRepository: Repository<Profile>,
+    @InjectRepository(Gender) private genderRepository: Repository<Gender>) {
 
     }
 
@@ -59,6 +61,11 @@ export class UsersService {
             userInDb.profile.firstname = data.firstname || userInDb.profile.firstname
             userInDb.profile.lastname = data.lastname || userInDb.profile.lastname
             userInDb.profile.phone = data.phone || userInDb.profile.phone
+            userInDb.profile.date_of_birth = data.date_of_birth || userInDb.profile.date_of_birth
+            if (data.gender){
+                const gender: Gender | undefined = await this.genderRepository.findOne(data.gender)
+                userInDb.profile.gender = gender || userInDb.profile.gender
+            }
 
             return await this.userRepository.save(userInDb)
         }

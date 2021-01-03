@@ -1,3 +1,4 @@
+import { Gender } from './entity/Gender';
 import { Address } from './entity/Address';
 import { Profile } from './entity/Profile';
 import { User } from './entity/User';
@@ -8,7 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AddressService } from './address.service';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User, Profile, Address])],
+  imports:[TypeOrmModule.forFeature([User, Profile, Address, Gender])],
   providers: [UsersService, AddressService],
   controllers: [UsersController],
   exports: [UsersService]

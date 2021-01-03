@@ -23,10 +23,15 @@ export class Profile {
     @Column({ length: 100, nullable: true})
     photo: string
 
+    @Column({ nullable: true})
+    genderId: number
+
     @OneToOne(type => User, user => user.id)
     user: User
 
-    @ManyToOne(type => Gender, gender => gender.id)
+    @ManyToOne(type => Gender, gender => gender.id, {
+        cascade: true
+    })
     gender: Gender
 
     @CreateDateColumn()

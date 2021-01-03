@@ -18,7 +18,8 @@ export class AuthenticationService {
                 const match = await bcrypt.compare(data.password, (await user).password)
                 if (match)
                   return {
-                      access_token: this.jwtService.sign({ email: data.email, sub: user.id})
+                      email: data.email,
+                      token: this.jwtService.sign({ email: data.email, sub: user.id})
                   }
             }
         }

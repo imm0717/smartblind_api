@@ -1,4 +1,3 @@
-import { User } from './../entity/User';
 export class CreateAddressDto {
     fullname: string
     address1?: string

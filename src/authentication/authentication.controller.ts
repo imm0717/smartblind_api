@@ -17,6 +17,7 @@ export class AuthenticationController {
     @Get('forgot')
     async forgot(@Param() params): Promise<string>{
         return await this.authenticationService.forgotPassword()
+        
     }
 
 }

@@ -21,8 +21,7 @@ export class UsersController {
     //@UseGuards(JwtAuthGuard)
     @Post('register')
     async register(@Body() createUserDto: CreateUserDto){
-        //return await this.userService.createUser(createUserDto)
-        throw new Error('Error interno')
+        return await this.userService.createUser(createUserDto)
     }
 
     @UseGuards(JwtAuthGuard)
@@ -37,7 +36,7 @@ export class UsersController {
     }
 
     @Post(':userId/address')
-    async addAddress(@Param('userId') userId: number, @Body() addressesDto: CreateAddressDto[]){
+    async addAddress(@Param('userId') userId: number, @Body() addressesDto: CreateAddressDto){
         return await this.addressService.insertAddress(userId, addressesDto)
     }
 
