@@ -62,8 +62,8 @@ export class UsersService {
             userInDb.profile.lastname = data.lastname || userInDb.profile.lastname
             userInDb.profile.phone = data.phone || userInDb.profile.phone
             userInDb.profile.date_of_birth = data.date_of_birth || userInDb.profile.date_of_birth
-            if (data.gender){
-                const gender: Gender | undefined = await this.genderRepository.findOne(data.gender)
+            if (data.genderId){
+                const gender: Gender | undefined = await this.genderRepository.findOne(data.genderId)
                 userInDb.profile.gender = gender || userInDb.profile.gender
             }
 

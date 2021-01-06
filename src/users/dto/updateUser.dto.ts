@@ -3,5 +3,5 @@ export class UpdateUserDto {
     lastname?: string
     date_of_birth?: string
     phone?: string
-    gender?: number
+    genderId?: number
 }
