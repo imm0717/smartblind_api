@@ -4,6 +4,7 @@ export default () => ({
     port: parseInt(process.env.PORT, 10) || 3000,
     app_key: process.env.APP_KEY,
     upload_path: process.env.UPLOAD_PATH,
+    token_expiration_time: 1800,
     database: {
         type: 'mysql',
         host: process.env.DB_HOST,
