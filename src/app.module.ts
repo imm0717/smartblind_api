@@ -7,7 +7,6 @@ import appConfig from "./configs/appconfig";
 import { AuthenticationModule } from './authentication/authentication.module';
 import { UsersModule } from './users/users.module';
 import { FileuploadModule } from './fileupload/fileupload.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
